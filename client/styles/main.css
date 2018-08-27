@@ -1,0 +1,30 @@
+.field {
+    width: 15rem;
+    height: 1.5rem;
+    font-size: 1rem;
+}
+
+.search-field {
+    width: 40rem;
+    height: 1.5rem;
+    font-size: 1rem;
+}
+.section {
+    padding-bottom: 1rem;
+}
+
+.adding-fields {
+    display: flex;
+}
+
+.recipe-box {
+    padding-left: 8rem;
+}
+
+button {
+    height: 1.5rem;
+}
+
+select {
+    font-size: 1rem;
+}
