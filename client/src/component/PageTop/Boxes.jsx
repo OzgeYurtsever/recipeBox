@@ -27,8 +27,8 @@ class Boxes extends Component {
             <button>Add</button>
           </div>
           <div>
-            <select>{boxes}</select>
-            <button>List</button>
+            <select onChange={this.props.onChange} className="dropdown" id="boxes">{boxes}</select>
+            {/* <button>List</button> */}
           </div>
         </form>
       </div>
