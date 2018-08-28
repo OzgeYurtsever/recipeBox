@@ -23,7 +23,19 @@ const saveRecipe = (boxName, title, link, callback) => {
   });
 };
 
-module.exports = { getRecipes, saveRecipe };
+const findRecipe = (keyWord, callback) => {
+  const text = `select * from recipes where title like '%${keyWord}%'`;
+
+  client.query(text, (err, res) => {
+    if (err) {
+      callback(err);
+    } else {
+      callback(err, res.rows);
+    }
+  });
+};
+
+module.exports = { getRecipes, saveRecipe, findRecipe };
 
 // getRecipes('salads', (err, data) => {
 //   err ? console.log(err) : console.log(data);
@@ -37,3 +49,7 @@ module.exports = { getRecipes, saveRecipe };
 //     err ? console.log(err) : console.log(data.rows);
 //   }
 // );
+
+// findRecipe('soup', (err, data) => {
+//   err ? console.log(err) : console.log(data);
+// });

@@ -12,11 +12,11 @@ class RecipeFields extends Component {
         <form role="addRecipe">
           <div className="recipe-section">
             <div>
-              <input type="input" className="field" placeholder="Add a title for the recipe..." />
+              <input type="input" className="field" id ="title" placeholder="Add a title for the recipe..." />
             </div>
             <div>
-              <input type="input" className="field" placeholder="Link to the recipe..." />
-              <button>Add</button>
+              <input type="input" className="field" id="link" placeholder="Link to the recipe..." />
+              <button onClick={this.props.onClick}>Add Recipe</button>
             </div>
           </div>
         </form>

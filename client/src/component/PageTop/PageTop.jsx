@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // import '../../../styles/main.css';
 import Boxes from './Boxes.jsx';
-import Seach from './Search.jsx';
+// import Seach from './Search.jsx';
 import RecipeFields from './RecipeFields.jsx';
 
 
@@ -13,10 +13,10 @@ class PageTop extends Component {
   render() {
     return(
       <div>
-        <Seach />
+        {/* <Seach /> */}
         <div className="adding-fields">
           <div>
-          <RecipeFields />
+          <RecipeFields onClick={this.props.onClick}/>
           </div>
           <div>
           <Boxes onChange={this.props.onChange}/>
