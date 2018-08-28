@@ -14,6 +14,7 @@ app.use('/home', express.static(htmlPath));
 app.use(express.static(reactPath));
 app.use(bodyParser.json());
 
+//dropdown
 app.get('/api/home/:boxName', (req, res) => {
   // console.log('inside server', req.params.boxName);
   model.getRecipes(req.params.boxName, (err, data) => {
@@ -25,8 +26,9 @@ app.get('/api/home/:boxName', (req, res) => {
   });
 });
 
+//search
 app.get('/api/home/search/:keyWord', (req, res) => {
-  console.log('inside server', req.params.keyWord);
+  // console.log('inside server', req.params.boxName);
   model.findRecipe(req.params.keyWord, (err, data) => {
     if (err) {
       res.status(404).send(err);
@@ -36,8 +38,19 @@ app.get('/api/home/search/:keyWord', (req, res) => {
   });
 });
 
+//add new boxname
+app.get('/api/newBox', (req, res) => {
+  console.log('inside server new box');
+  model.getBoxNames((err, data) => {
+    if (err) {
+      res.status(404).send(err);
+    } else {
+      res.json(data);
+    }
+  });
+});
+
 app.post('/api/home', (req, res) => {
-  console.log('inside server post', req.body);
   model.saveRecipe(req.body.box, req.body.title, req.body.link, (err, data) => {
     if (err) {
       res.status(500).send(err);

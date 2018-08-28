@@ -5,13 +5,12 @@ class Boxes extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      boxes: ['soups', 'salads', 'desserts', 'gluten-free']
     }
   }
 
   renderDropdown() {
-    let boxes = this.state.boxes.map((box, index) => 
-      <option key={index}>{box}</option>
+    let boxes = this.props.boxes.map((box, index) => 
+      <option key={index}>{box.boxname}</option>
     );
 
     return boxes;
@@ -23,8 +22,8 @@ class Boxes extends Component {
       <div className = "section">
         <form role="addBox" className="recipe-box">
           <div>
-            <input type="input" className="field" placeholder="Add a new recipe box..." />
-            <button>Add</button>
+            <input type="input" className="field" id="newBox" placeholder="Add a new recipe box..." />
+            <button onClick={this.props.onBoxAdd}>Add</button>
           </div>
           <div>
             <select onChange={this.props.onChange} className="dropdown" id="boxes">{boxes}</select>

@@ -35,7 +35,18 @@ const findRecipe = (keyWord, callback) => {
   });
 };
 
-module.exports = { getRecipes, saveRecipe, findRecipe };
+const getBoxNames = callback => {
+  const text = `select distinct boxname from recipes`;
+  client.query(text, (err, res) => {
+    if (err) {
+      callback(err);
+    } else {
+      callback(err, res.rows);
+    }
+  });
+};
+
+module.exports = { getRecipes, saveRecipe, findRecipe, getBoxNames };
 
 // getRecipes('salads', (err, data) => {
 //   err ? console.log(err) : console.log(data);
@@ -51,5 +62,9 @@ module.exports = { getRecipes, saveRecipe, findRecipe };
 // );
 
 // findRecipe('soup', (err, data) => {
+//   err ? console.log(err) : console.log(data);
+// });
+
+// getBoxNames((err, data) => {
 //   err ? console.log(err) : console.log(data);
 // });

@@ -9,11 +9,13 @@ class App extends Component {
     super(props);
     this.state = {
       box: 'soups',
-      recipesToList: []
+      recipesToList: [],
+      boxes: [{boxname:'soups'}, {boxname:'salads'}, {boxname:'desserts'}, {boxname:'gluten-free'}]
     };
     this.handleBoxSelection = this.handleBoxSelection.bind(this);
     this.handleAddRecipe = this.handleAddRecipe.bind(this);
     this.handleRecipeSearch = this.handleRecipeSearch.bind(this);
+    this.handleAddBox = this.handleAddBox.bind(this);
   }   
 
   handleBoxSelection(e) {
@@ -25,8 +27,40 @@ class App extends Component {
     // console.log(boxName);
   }
 
+  handleAddBox(e) {
+    e.preventDefault();
+    let newBoxName = document.getElementById("newBox").value;
+    if (newBoxName.length === 0) {
+      alert('Please insert a box name!');
+      return;
+    }
+    this.postRecipe(newBoxName, '', '');
+    document.getElementById("newBox").value = '';
+    this.getListOfBoxes(newBoxName);
+  }
+
   componentDidMount() {
     this.getDataOnSelection(this.state.box);
+    this.getListOfBoxes();
+  }
+
+  getListOfBoxes() {
+    let url = '/api/newBox';
+    console.log(url);
+    const self = this;
+    fetch(url)
+      .then(response => response.json())
+      .then(data => this.setState({ boxes: data }))
+      .then(data => console.log('here!!!!', data))
+      .catch(() => {
+        console.log("error")});
+
+    // axios.get(url)
+    //   .then(res => {
+    //     const boxesData = res.data;
+    //     this.setState({ boxes: boxesData });
+    //   })
+
   }
 
   handleAddRecipe(e) {
@@ -90,7 +124,8 @@ class App extends Component {
       <div> 
         <h2> My recipe box </h2>
         <Search onClick={this.handleRecipeSearch}/>
-        <PageTop onChange={this.handleBoxSelection} onClick={this.handleAddRecipe}/>
+        <PageTop boxes={this.state.boxes} onChange={this.handleBoxSelection}
+            onClick={this.handleAddRecipe} onBoxAdd={this.handleAddBox}/>
         <List recipes={this.state.recipesToList}/>
       </div>
     );

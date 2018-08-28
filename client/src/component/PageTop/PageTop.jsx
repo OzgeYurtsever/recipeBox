@@ -19,7 +19,8 @@ class PageTop extends Component {
           <RecipeFields onClick={this.props.onClick}/>
           </div>
           <div>
-          <Boxes onChange={this.props.onChange}/>
+          <Boxes boxes={this.props.boxes} onChange={this.props.onChange} 
+            onBoxAdd={this.props.onBoxAdd}/>
           </div>
         </div>
       </div>
