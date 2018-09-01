@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-// import '../../../styles/main.css';
 import Boxes from './Boxes.jsx';
-// import Seach from './Search.jsx';
 import RecipeFields from './RecipeFields.jsx';
-
 
 class PageTop extends Component {
   constructor(props) {

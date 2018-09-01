@@ -6,17 +6,15 @@ const bodyParser = require('body-parser');
 
 app.set('port', 3000);
 
-app.use;
-let htmlPath = path.join(__dirname, '../public/index.html');
+let htmlPath = path.join(__dirname, '../public/');
 let reactPath = path.join(__dirname, '../client/dist');
 
-app.use('/home', express.static(htmlPath));
+app.use(express.static(htmlPath));
 app.use(express.static(reactPath));
 app.use(bodyParser.json());
 
 //dropdown
-app.get('/api/home/:boxName', (req, res) => {
-  // console.log('inside server', req.params.boxName);
+app.get('/api/:boxName', (req, res) => {
   model.getRecipes(req.params.boxName, (err, data) => {
     if (err) {
       res.status(404).send(err);
@@ -27,8 +25,7 @@ app.get('/api/home/:boxName', (req, res) => {
 });
 
 //search
-app.get('/api/home/search/:keyWord', (req, res) => {
-  // console.log('inside server', req.params.boxName);
+app.get('/api/search/:keyWord', (req, res) => {
   model.findRecipe(req.params.keyWord, (err, data) => {
     if (err) {
       res.status(404).send(err);
@@ -39,18 +36,17 @@ app.get('/api/home/search/:keyWord', (req, res) => {
 });
 
 //add new boxname
-app.get('/api/newBox', (req, res) => {
-  console.log('inside server new box');
+app.get('/api/home/newBox', (req, res) => {
   model.getBoxNames((err, data) => {
     if (err) {
       res.status(404).send(err);
     } else {
-      res.json(data);
+      res.send(data);
     }
   });
 });
 
-app.post('/api/home', (req, res) => {
+app.post('/api', (req, res) => {
   model.saveRecipe(req.body.box, req.body.title, req.body.link, (err, data) => {
     if (err) {
       res.status(500).send(err);

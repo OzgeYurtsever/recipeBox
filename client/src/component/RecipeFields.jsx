@@ -4,6 +4,7 @@ import FontAwesome from 'react-fontawesome';
 class RecipeFields extends Component {
   constructor(props) {
     super(props);
+    this.state = {title: '', link: ''};
   }
 
   render() {

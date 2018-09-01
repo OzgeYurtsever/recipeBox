@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import PageTop from './PageTop/PageTop.jsx';
-import List from './List/List.jsx';
+import PageTop from './PageTop.jsx';
+import RecipeList from './RecipeList.jsx';
 import axios from 'axios';
-import Search from './PageTop/Search';
+import Search from './Search';
 
 class App extends Component {
   constructor(props) {
@@ -21,10 +21,8 @@ class App extends Component {
   handleBoxSelection(e) {
     e.preventDefault();
     let boxName = document.getElementById("boxes").value;
-    // let boxName = selection.options[selection.selectedIndex].value;
     this.setState({box: boxName});
     this.getDataOnSelection(boxName);
-    // console.log(boxName);
   }
 
   handleAddBox(e) {
@@ -45,22 +43,14 @@ class App extends Component {
   }
 
   getListOfBoxes() {
-    let url = '/api/newBox';
-    console.log(url);
+    let url = '/api/home/newBox';
     const self = this;
     fetch(url)
       .then(response => response.json())
-      .then(data => this.setState({ boxes: data }))
-      .then(data => console.log('here!!!!', data))
+      .then(data => {console.log('here', data); 
+      this.setState({ boxes: data })})
       .catch(() => {
-        console.log("error")});
-
-    // axios.get(url)
-    //   .then(res => {
-    //     const boxesData = res.data;
-    //     this.setState({ boxes: boxesData });
-    //   })
-
+        console.log("error in getting recipe list")});
   }
 
   handleAddRecipe(e) {
@@ -76,14 +66,11 @@ class App extends Component {
   handleRecipeSearch(e) {
     e.preventDefault();
     let keyWord = document.getElementById("search").value;
-    console.log(keyWord);
     this.getDataOnSearch(keyWord);
-
   }
 
   postRecipe(boxName, recipeTitle, recipeLink) {
-    console.log('inside post in client', boxName, title);
-    axios.post('/api/home', {
+    axios.post('/api', {
       box: boxName,
       title: recipeTitle,
       link: recipeLink
@@ -97,26 +84,22 @@ class App extends Component {
   }
 
   getDataOnSearch(keyWord) {
-    let url = `/api/home/search/${keyWord}`;
-    // console.log(url);
-    // const self = this;
+    let url = `/api/search/${keyWord}`;
     fetch(url)
       .then(response => response.json())
       .then(data => this.setState({ recipesToList: data }))
       .catch(() => {
-        console.log("error")});
+        console.log("error in getiing search result")});
   }
   
   getDataOnSelection(boxName) {
-    // console.log('inside get', boxName);
-    let url = `/api/home/${boxName}`;
-    // console.log(url);
-    // const self = this;
+    console.log(boxName);
+    let url = `/api/${boxName}`;
     fetch(url)
       .then(response => response.json())
       .then(data => this.setState({ recipesToList: data }))
       .catch(() => {
-        console.log("error")});
+        console.log("error in getting data from dropdown selection")});
   }
 
   render() {
@@ -126,7 +109,7 @@ class App extends Component {
         <Search onClick={this.handleRecipeSearch}/>
         <PageTop boxes={this.state.boxes} onChange={this.handleBoxSelection}
             onClick={this.handleAddRecipe} onBoxAdd={this.handleAddBox}/>
-        <List recipes={this.state.recipesToList}/>
+        <RecipeList recipes={this.state.recipesToList}/>
       </div>
     );
   }
