@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import FontAwesome from 'react-fontawesome';
 
 class RecipeFields extends Component {
   constructor(props) {
     super(props);
+    console.log(props);
     this.state = {title: '', link: ''};
   }
+
+
 
   render() {
     return (
@@ -13,11 +15,11 @@ class RecipeFields extends Component {
         <form role="addRecipe">
           <div className="recipe-section">
             <div>
-              <input type="input" className="field" id ="title" placeholder="Add a title for the recipe..." />
+              <input type="input" className="field" onChange={this.props.onRecipeTitle} placeholder="Add a title for the recipe..." />
             </div>
             <div>
-              <input type="input" className="field" id="link" placeholder="Link to the recipe..." />
-              <button onClick={this.props.onClick}>Add Recipe</button>
+              <input type="input" className="field" onChange={this.props.onRecipeURL} placeholder="Link to the recipe..." />
+              <button onClick={this.props.onAddRecipe}>Add Recipe</button>
             </div>
           </div>
         </form>

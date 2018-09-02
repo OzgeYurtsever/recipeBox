@@ -46,6 +46,7 @@ app.get('/api/home/newBox', (req, res) => {
   });
 });
 
+//add a new recipe
 app.post('/api', (req, res) => {
   model.saveRecipe(req.body.box, req.body.title, req.body.link, (err, data) => {
     if (err) {
