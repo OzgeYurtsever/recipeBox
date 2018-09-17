@@ -4,6 +4,7 @@ import RecipeFields from './RecipeFields.jsx';
 import RecipeList from './RecipeList.jsx';
 import axios from 'axios';
 import Search from './Search';
+import { BrowserRouter, Route, withRouter } from 'react-router-dom';
 
 class App extends Component {
   constructor(props) {
@@ -37,6 +38,10 @@ class App extends Component {
     this.setState({box: selectedBox});
     this.getDataOnSelection(selectedBox);
   }
+
+  // onChange = (e) => {
+  //   this.props.history.push(`/${e.target.value}`);
+  // }
 
   handleAddBox(e) {
     e.preventDefault();
@@ -128,7 +133,7 @@ class App extends Component {
           <RecipeFields onAddRecipe={this.handleAddRecipe} onRecipeTitle={this.handleChangeInRecipeTitle} 
             onRecipeURL={this.handleChangeInRecipeURL}/>
           <Boxes boxes={this.state.boxes} onChange={this.handleBoxSelection} 
-              onBoxAdd={this.props.onBoxAdd}/>
+              onBoxAdd={this.props.handleAddBox}/>
         </div>
         <RecipeList recipes={this.state.recipesToList}/>
       </div>
