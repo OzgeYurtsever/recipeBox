@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 const Boxes = props => {
   let boxes = props.boxes.map((box, index) => <option key={index}>{box.boxname}</option>);

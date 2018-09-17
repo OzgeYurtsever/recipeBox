@@ -4,7 +4,6 @@ import RecipeFields from './RecipeFields.jsx';
 import RecipeList from './RecipeList.jsx';
 import axios from 'axios';
 import Search from './Search';
-import { BrowserRouter, Route, withRouter } from 'react-router-dom';
 
 class App extends Component {
   constructor(props) {
