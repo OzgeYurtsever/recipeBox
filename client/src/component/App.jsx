@@ -17,7 +17,8 @@ class App extends Component {
       box: 'soups',
       recipesToList: [],
       boxes: [],
-      lastBoxUsed: ''
+      lastBoxUsed: '',
+      newBox: ''
     };
     this.handleBoxSelection = this.handleBoxSelection.bind(this);
     this.handleAddRecipe = this.handleAddRecipe.bind(this);
@@ -25,6 +26,7 @@ class App extends Component {
     this.handleAddBox = this.handleAddBox.bind(this);
     this.handleChangeInRecipeTitle = this.handleChangeInRecipeTitle.bind(this);
     this.handleChangeInRecipeURL = this.handleChangeInRecipeURL.bind(this);
+    this.handleNewBoxNameEntry = this.handleNewBoxNameEntry.bind(this);
   }   
 
   componentDidMount() {
@@ -39,20 +41,20 @@ class App extends Component {
     this.getDataOnSelection(selectedBox);
   }
 
-  // onChange = (e) => {
-  //   this.props.history.push(`/${e.target.value}`);
-  // }
+  handleNewBoxNameEntry(e) {
+    e.preventDefault;
+    console.log(e.target.value);
+    this.setState({newBox: e.target.value});
+  }
 
   handleAddBox(e) {
     e.preventDefault();
-    let newBoxName = document.getElementById("newBox").value;
-    if (newBoxName.length === 0) {
+    if (this.state.newBox.length === 0) {
       alert('Please insert a box name!');
       return;
     }
-    this.postRecipe(newBoxName, '', '');
-    document.getElementById("newBox").value = '';
-    this.getListOfBoxes(newBoxName);
+    this.postRecipe(this.state.newBox, '', '');
+    this.getListOfBoxes();
   }
 
   handleChangeInRecipeTitle(event) {
@@ -70,9 +72,6 @@ class App extends Component {
     this.postRecipe(this.state.box, this.state.recipeTitle, this.state.recipeURL);
     this.setState({recipeTitle: '', recipeURL: ''});
     this.getDataOnSelection(this.state.box);
-    // this.setState({box: this.state.box});
-    // window.location.reload();
-    // this.handleBoxSelection();
   }
 
   handleRecipeSearch(e) {
@@ -115,7 +114,6 @@ class App extends Component {
   }
   
   getDataOnSelection(boxName) {
-    console.log(boxName);
     let url = `/api/${boxName}`;
     fetch(url)
       .then(response => response.json())
@@ -132,8 +130,8 @@ class App extends Component {
         <div className="adding-fields">
           <RecipeFields onAddRecipe={this.handleAddRecipe} onRecipeTitle={this.handleChangeInRecipeTitle} 
             onRecipeURL={this.handleChangeInRecipeURL}/>
-          <Boxes boxes={this.state.boxes} onChange={this.handleBoxSelection} 
-              onBoxAdd={this.props.handleAddBox}/>
+          <Boxes boxes={this.state.boxes} onSelection={this.handleBoxSelection} 
+            onChange = {this.handleNewBoxNameEntry} onBoxAdd={this.handleAddBox}/>
         </div>
         <RecipeList recipes={this.state.recipesToList}/>
       </div>
