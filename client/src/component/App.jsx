@@ -17,8 +17,10 @@ class App extends Component {
       recipesToList: [],
       boxes: [],
       lastBoxUsed: '',
-      newBox: ''
+      newBox: '',
+      searchKey: ''
     };
+
     this.handleBoxSelection = this.handleBoxSelection.bind(this);
     this.handleAddRecipe = this.handleAddRecipe.bind(this);
     this.handleRecipeSearch = this.handleRecipeSearch.bind(this);
@@ -26,6 +28,7 @@ class App extends Component {
     this.handleChangeInRecipeTitle = this.handleChangeInRecipeTitle.bind(this);
     this.handleChangeInRecipeURL = this.handleChangeInRecipeURL.bind(this);
     this.handleNewBoxNameEntry = this.handleNewBoxNameEntry.bind(this);
+    this.handleSearhKey = this.handleSearhKey.bind(this);
   }   
 
   componentDidMount() {
@@ -73,10 +76,14 @@ class App extends Component {
     this.getDataOnSelection(this.state.box);
   }
 
+  handleSearhKey(e) {
+    e.preventDefault();
+    this.setState({searchKey: e.target.value});
+  }
+
   handleRecipeSearch(e) {
     e.preventDefault();
-    let keyWord = document.getElementById("search").value;
-    this.getDataOnSearch(keyWord);
+    this.getDataOnSearch(this.state.searchKey);
   }
 
   getListOfBoxes() {
@@ -125,7 +132,7 @@ class App extends Component {
     return (
       <div> 
         <h2> My recipe box </h2>
-        <Search onClick={this.handleRecipeSearch}/>
+        <Search onClick={this.handleRecipeSearch} onChange={this.handleSearhKey}/>
         <div className="adding-fields">
           <RecipeFields onAddRecipe={this.handleAddRecipe} onRecipeTitle={this.handleChangeInRecipeTitle} 
             onRecipeURL={this.handleChangeInRecipeURL}/>
